@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BALI VINTAGE — Ropa con historia</title>
+<style>
+:root{
+  --cream:#f4efe5; --ink:#211f1b; --rust:#a84e35; --sage:#78816b;
+  --paper:#fffaf1; --line:#d8cfbf;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--cream);color:var(--ink);line-height:1.5}
+header{position:sticky;top:0;z-index:10;background:rgba(244,239,229,.95);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.nav{max-width:1200px;margin:auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-family:Georgia,serif;font-size:25px;font-weight:bold;letter-spacing:3px}
+nav a{color:var(--ink);text-decoration:none;margin:0 12px;font-size:14px;text-transform:uppercase;letter-spacing:1px}
+.cart{border:1px solid var(--ink);background:var(--ink);color:white;padding:10px 15px;border-radius:999px;cursor:pointer}
+.hero{max-width:1200px;margin:auto;padding:80px 24px 65px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.eyebrow{text-transform:uppercase;letter-spacing:3px;color:var(--rust);font-size:12px;font-weight:bold}
+h1{font-family:Georgia,serif;font-size:clamp(54px,8vw,105px);line-height:.9;margin:18px 0 25px}
+.hero p{max-width:520px;font-size:18px;color:#575149}
+.btn{display:inline-block;margin-top:28px;background:var(--rust);color:white;text-decoration:none;padding:14px 22px;border-radius:3px;font-weight:bold}
+.hero-art{min-height:480px;background:var(--sage);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero-art:before{content:"";width:270px;height:390px;background:#d8b79a;border-radius:48% 48% 12% 12%;transform:rotate(8deg);box-shadow:30px 25px 0 #c49b7d}
+.hero-art span{position:absolute;bottom:22px;left:25px;background:var(--paper);padding:8px 12px;font-family:Georgia,serif}
+section{max-width:1200px;margin:auto;padding:55px 24px}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px}
+h2{font-family:Georgia,serif;font-size:42px}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.category{padding:35px 20px;background:var(--paper);border:1px solid var(--line);text-decoration:none;color:var(--ink);font-family:Georgia,serif;font-size:24px}
+.category small{display:block;font-family:Arial;font-size:11px;text-transform:uppercase;letter-spacing:2px;margin-top:15px;color:#777}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.product{background:var(--paper);border:1px solid var(--line);overflow:hidden}
+.pic{height:280px;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:24px;color:#fff}.photo{background:#eee8dc}.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.p1{background:#8b6d5b}.p2{background:#5d6c62}.p3{background:#a56c4e}.p4{background:#4d5965}
+.info{padding:16px}.info h3{font-family:Georgia,serif;font-size:19px}.price{margin-top:8px;font-weight:bold}
+.add{margin-top:13px;width:100%;padding:11px;border:1px solid var(--ink);background:transparent;cursor:pointer}
+.story{background:var(--ink);color:white;max-width:none}
+.story-inner{max-width:1200px;margin:auto;padding:70px 24px;display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.story h2{color:#f5e9d7}.story p{color:#d5cec4;max-width:570px}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+form{display:grid;gap:12px}
+input,textarea{width:100%;padding:14px;border:1px solid var(--line);background:var(--paper);font:inherit}
+textarea{min-height:130px;resize:vertical}
+footer{border-top:1px solid var(--line);padding:25px 24px;text-align:center;font-size:13px;color:#6e675e}
+.cart-panel{position:fixed;right:0;top:0;width:min(390px,100%);height:100%;background:var(--paper);z-index:30;padding:25px;box-shadow:-8px 0 30px #0002;transform:translateX(100%);transition:.25s}
+.cart-panel.open{transform:translateX(0)}
+.close{float:right;border:0;background:none;font-size:25px;cursor:pointer}
+#items{clear:both;padding-top:30px}.item{padding:14px 0;border-bottom:1px solid var(--line)}
+.total{margin-top:25px;font-weight:bold;font-size:20px}
+@media(max-width:800px){
+ nav{display:none}.hero,.story-inner,.contact{grid-template-columns:1fr}
+ .hero{padding-top:50px}.hero-art{min-height:330px}
+ .categories,.products{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:480px){.categories,.products{grid-template-columns:1fr}h2{font-size:34px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="logo">BALI VINTAGE</div>
+    <nav><a href="#coleccion">Colección</a><a href="#historia">Historia</a><a href="#contacto">Contacto</a></nav>
+    <button class="cart" onclick="toggleCart()">🛒 Carrito (<span id="count">0</span>)</button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div>
+    <div class="eyebrow">Segunda vida · Estilo eterno</div>
+    <h1>Ropa con<br>historia.</h1>
+    <p>Piezas vintage seleccionadas para quienes prefieren vestir diferente. Encuentra tesoros únicos y dales una nueva historia.</p>
+    <a class="btn" href="#coleccion">VER COLECCIÓN</a>
+  </div>
+  <div class="hero-art"><span>CURATED VINTAGE / 01</span></div>
+</section>
+
+<section id="coleccion">
+  <div class="section-head"><h2>Explora</h2><span>Todo lo que buscas, en un solo lugar.</span></div>
+  <div class="categories">
+    <a class="category" href="#productos" style="background-image:linear-gradient(#0003,#0003),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgODAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iIzNlM2IzNiIvPjxjaXJjbGUgY3g9IjQwMCIgY3k9IjM2MCIgcj0iMjMwIiBmaWxsPSIjYTg0ZTM1Ii8+PHRleHQgeD0iNDAwIiB5PSIzMjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhIiBmb250LXNpemU9IjcwIiBmaWxsPSIjZmZmYWYxIj5WSU5UQUdFPC90ZXh0Pjx0ZXh0IHg9IjQwMCIgeT0iNDA1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDgiIGxldHRlci1zcGFjaW5nPSI4IiBmaWxsPSIjZmZmYWYxIj5NT1RPUiBDTFVCPC90ZXh0PjxwYXRoIGQ9Ik0xODAgNTAwIFE0MDAgNjEwIDYyMCA1MDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmFmMSIgc3Ryb2tlLXdpZHRoPSIxMiIvPjwvc3ZnPgo=');background-size:cover;background-position:center;color:white">Camisetas<small style="color:white">Vintage tees</small></a>
+    <a class="category" href="#productos" style="background-image:linear-gradient(#0003,#0003),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgODAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iIzZiNmY2OCIvPjxwYXRoIGQ9Ik0yNzAgMTIwaDI2MGw4MCA1NjBIMTkweiIgZmlsbD0iIzM1NTE2YSIvPjxwYXRoIGQ9Ik0yNzAgMTIwbC02NSAxMDVNNTMwIDEyMGw2NSAxMDUiIHN0cm9rZT0iIzI2M2Q1MCIgc3Ryb2tlLXdpZHRoPSI1NSIvPjxyZWN0IHg9IjMxMCIgeT0iMTg1IiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjEwMCIgcng9IjgiIGZpbGw9IiNjOTliNzAiLz48dGV4dCB4PSI0MDAiIHk9IjI1MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEiIGZvbnQtc2l6ZT0iMzgiIGZpbGw9IiNmZmZhZjEiPlZJTlRBR0U8L3RleHQ+PC9zdmc+Cg==');background-size:cover;background-position:center;color:white">Chaquetas<small style="color:white">Outerwear</small></a>
+    <a class="category" href="#productos" style="background-image:linear-gradient(#0003,#0003),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgODAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iIzhiODI2ZSIvPjxwYXRoIGQ9Ik0yODAgMTAwaDI0MGw1NSA1OTBINDMwVjQyMGgtNjB2MjcwSDIyNXoiIGZpbGw9IiM1OTYyNGYiLz48cmVjdCB4PSIyNTUiIHk9IjMwMCIgd2lkdGg9IjExMCIgaGVpZ2h0PSIxMjUiIGZpbGw9IiM0YjU1NDQiLz48cmVjdCB4PSI0MzUiIHk9IjMwMCIgd2lkdGg9IjExMCIgaGVpZ2h0PSIxMjUiIGZpbGw9IiM0YjU1NDQiLz48dGV4dCB4PSI0MDAiIHk9IjE3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEiIGZvbnQtc2l6ZT0iNTAiIGZpbGw9IiNmZmZhZjEiPkNBUkdPPC90ZXh0Pjwvc3ZnPgo=');background-size:cover;background-position:center;color:white">Pantalones<small style="color:white">Denim & more</small></a>
+    <a class="category" href="#productos">Accesorios<small>Details</small></a>
+  </div>
+</section>
+
+<section id="productos">
+  <div class="section-head"><h2>Precios vintage</h2><span>Compra por unidad o al kilo</span></div>
+  <div class="products">
+    <article class="product"><div class="pic photo"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgODAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iIzZiNmY2OCIvPjxwYXRoIGQ9Ik0yNzAgMTIwaDI2MGw4MCA1NjBIMTkweiIgZmlsbD0iIzM1NTE2YSIvPjxwYXRoIGQ9Ik0yNzAgMTIwbC02NSAxMDVNNTMwIDEyMGw2NSAxMDUiIHN0cm9rZT0iIzI2M2Q1MCIgc3Ryb2tlLXdpZHRoPSI1NSIvPjxyZWN0IHg9IjMxMCIgeT0iMTg1IiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjEwMCIgcng9IjgiIGZpbGw9IiNjOTliNzAiLz48dGV4dCB4PSI0MDAiIHk9IjI1MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEiIGZvbnQtc2l6ZT0iMzgiIGZpbGw9IiNmZmZhZjEiPlZJTlRBR0U8L3RleHQ+PC9zdmc+Cg==" alt="Chaqueta vintage Burberry o Levi's"></div><div class="info"><h3>Chaquetas vintage</h3><div class="price">10,00 € / kg</div><p style="margin-top:6px;color:#6d665d;font-size:14px">Burberry, Levi’s y más marcas.</p><button class="add" onclick="add('Chaquetas vintage — 1 kg',10)">Añadir 1 kg</button></div></article>
+    <article class="product"><div class="pic photo"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgODAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iIzhiODI2ZSIvPjxwYXRoIGQ9Ik0yODAgMTAwaDI0MGw1NSA1OTBINDMwVjQyMGgtNjB2MjcwSDIyNXoiIGZpbGw9IiM1OTYyNGYiLz48cmVjdCB4PSIyNTUiIHk9IjMwMCIgd2lkdGg9IjExMCIgaGVpZ2h0PSIxMjUiIGZpbGw9IiM0YjU1NDQiLz48cmVjdCB4PSI0MzUiIHk9IjMwMCIgd2lkdGg9IjExMCIgaGVpZ2h0PSIxMjUiIGZpbGw9IiM0YjU1NDQiLz48dGV4dCB4PSI0MDAiIHk9IjE3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEiIGZvbnQtc2l6ZT0iNTAiIGZpbGw9IiNmZmZhZjEiPkNBUkdPPC90ZXh0Pjwvc3ZnPgo=" alt="Pantalones vintage"></div><div class="info"><h3>Pantalones vintage</h3><div class="price">8,00 € / kg</div><p style="margin-top:6px;color:#6d665d;font-size:14px">Selección variada de marcas y estilos.</p><button class="add" onclick="add('Pantalones vintage — 1 kg',8)">Añadir 1 kg</button></div></article>
+    <article class="product"><div class="pic photo"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgODAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iIzU2NjQ1ZCIvPjxwYXRoIGQ9Ik0yNTAgMTgwaDMwMGw3MCA0NTBIMTgweiIgZmlsbD0iI2U3ZTBkMiIvPjxwYXRoIGQ9Ik0yMzAgMjUwaDM0MCIgc3Ryb2tlPSIjYTg0ZTM1IiBzdHJva2Utd2lkdGg9IjM1Ii8+PHBhdGggZD0iTTI3MCA0MjAgUTQwMCAzMzAgNTMwIDQyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYTg0ZTM1IiBzdHJva2Utd2lkdGg9IjIwIi8+PHRleHQgeD0iNDAwIiB5PSI1NjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhIiBmb250LXNpemU9IjU1IiBmaWxsPSIjMjExZjFiIj5SRVRSTyBLTklUPC90ZXh0Pjwvc3ZnPgo=" alt="Jerseys vintage"></div><div class="info"><h3>Jerseys vintage</h3><div class="price">10,00 € / kg</div><p style="margin-top:6px;color:#6d665d;font-size:14px">Jerseys vintage de diferentes marcas.</p><button class="add" onclick="add('Jerseys vintage — 1 kg',10)">Añadir 1 kg</button></div></article>
+    <article class="product"><div class="pic photo"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgODAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iIzliNzA1OCIvPjxwYXRoIGQ9Ik0yODAgMTUwbDEyMCA3NSAxMjAtNzUgMTAwIDExMC03NSA5MC0zNS01NXYzNzBIMjkwVjI5NWwtMzUgNTUtNzUtOTB6IiBmaWxsPSIjZjRlZmU1Ii8+PHBhdGggZD0iTTM2NSAxOTBoNzB2OTVoLTcweiIgZmlsbD0iI2M5YmNhOCIvPjx0ZXh0IHg9IjQwMCIgeT0iNjIwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iR2VvcmdpYSIgZm9udC1zaXplPSI1MiIgZmlsbD0iIzIxMWYxYiI+UE9MTyBWSU5UQUdFPC90ZXh0Pjwvc3ZnPgo=" alt="Camisetas Polo vintage"></div><div class="info"><h3>Camisetas Polo vintage</h3><div class="price">10,00 € / kg</div><p style="margin-top:6px;color:#6d665d;font-size:14px">Polos vintage seleccionados.</p><button class="add" onclick="add('Camisetas Polo vintage — 1 kg',10)">Añadir 1 kg</button></div></article>
+  </div>
+</section>
+
+<div class="story" id="historia"><div class="story-inner"><div><div class="eyebrow">Bali Vintage</div><h2>Lo viejo vuelve a sentirse nuevo.</h2></div><p>Buscamos prendas con carácter, detalles que ya no se fabrican y siluetas que siguen funcionando décadas después. Cada pieza se selecciona una a una para que encuentres algo realmente especial.</p></div></div>
+
+<section id="contacto">
+  <div class="contact">
+    <div><div class="eyebrow">¿Hablamos?</div><h2>Contacto</h2><p style="margin-top:15px;color:#625b53">¿Tienes dudas sobre una talla, una prenda o un pedido? Escríbenos.</p></div>
+    <form onsubmit="send(event)"><input required placeholder="Tu nombre"><input required type="email" placeholder="Tu email"><textarea required placeholder="Escribe tu mensaje..."></textarea><button class="btn" type="submit">ENVIAR MENSAJE</button></form>
+  </div>
+</section>
+</main>
+
+<footer>© 2026 BALI VINTAGE · Ropa vintage seleccionada con cariño.</footer>
+
+<aside class="cart-panel" id="cart">
+<button class="close" onclick="toggleCart()">×</button>
+<h2>Tu carrito</h2>
+<div id="items">Tu carrito está vacío.</div>
+<div class="total">Total: <span id="total">0,00 €</span></div>
+<button class="btn" style="width:100%;border:0;cursor:pointer" onclick="checkout()">FINALIZAR COMPRA</button>
+</aside>
+
+<script>
+let cart=[];
+function add(name,price){cart.push({name,price});render();document.getElementById('cart').classList.add('open')}
+function render(){
+ document.getElementById('count').textContent=cart.length;
+ const box=document.getElementById('items');
+ if(!cart.length){box.textContent='Tu carrito está vacío.';document.getElementById('total').textContent='0,00 €';return}
+ box.innerHTML=cart.map((x,i)=>`<div class="item"><b>${x.name}</b><br>${x.price.toFixed(2).replace('.',',')} € <button onclick="removeItem(${i})" style="float:right">Eliminar</button></div>`).join('');
+ document.getElementById('total').textContent=cart.reduce((a,x)=>a+x.price,0).toFixed(2).replace('.',',')+' €';
+}
+function removeItem(i){cart.splice(i,1);render()}
+function toggleCart(){document.getElementById('cart').classList.toggle('open')}
+function checkout(){alert('Demo: aquí conectaríamos el pago real (Stripe, PayPal, etc.).')}
+function send(e){e.preventDefault();alert('¡Mensaje enviado! En una versión real, este formulario quedaría conectado a tu email.');e.target.reset()}
+</script>
+</body>
+</html>
